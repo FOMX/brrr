@@ -1,17 +1,15 @@
-use brrr::{PROBS, game::game_xoshiro128_plus_plus_rng};
+use brrr::{PROBS, game::game};
 use criterion::{Criterion, criterion_group, criterion_main};
-use rand::rngs::{SmallRng, Xoshiro128PlusPlus};
+use rand::rngs::SmallRng;
 use rand_distr::Bernoulli;
 
 fn bench_game(c: &mut Criterion) {
     let mut group = c.benchmark_group("game");
 
-    let mut r: Xoshiro128PlusPlus = rand::make_rng();
+    let mut r: SmallRng = rand::make_rng();
     // bernouli distributions. this may be inefficient
     let berns = PROBS.map(|p| Bernoulli::new(p).unwrap());
-    group.bench_function("xoshiro128_rng", |b| {
-        b.iter(|| game_xoshiro128_plus_plus_rng(&mut r, &berns))
-    });
+    group.bench_function("small_rng", |b| b.iter(|| game(&mut r, &berns)));
 
     group.finish();
 }

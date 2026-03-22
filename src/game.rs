@@ -1,15 +1,12 @@
-use rand::rngs::Xoshiro128PlusPlus;
+use rand::Rng;
 use rand_distr::{Bernoulli, Distribution};
 
 use crate::CAPS;
 
-// each game consists of 99 rounds
+/// each game consists of 99 rounds
 /// each round has a cap
 /// the distribution of the total amount of turns is of interest.
-pub fn game_xoshiro128_plus_plus_rng(
-    mut r: &mut Xoshiro128PlusPlus,
-    berns: &[Bernoulli; 12],
-) -> usize {
+pub fn game(mut r: &mut impl Rng, berns: &[Bernoulli; 12]) -> usize {
     CAPS.iter()
         .enumerate()
         .flat_map(|(i, &cap)| {
