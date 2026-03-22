@@ -25,48 +25,8 @@
 //! the CAPS const has these caps.
 //!
 pub mod game;
+pub mod sim;
 pub mod stats;
-pub mod sim; 
-
-#[allow(dead_code)]
-/// weight of a success draw in each round
-const SUCCESS_WEIGHTS: [usize; 12] = [1, 1, 1, 5, 5, 5, 10, 10, 10, 30, 30, 30];
-
-#[allow(dead_code)]
-const FAIL_WEIGHT: usize = 10;
-
-/// weight of a fail draw in each round
-#[allow(dead_code)]
-const FAIL_WEIGHTS: [usize; 12] = [
-    FAIL_WEIGHT * 11, // 110
-    FAIL_WEIGHT * 10, // 100
-    FAIL_WEIGHT * 9,  // 90
-    FAIL_WEIGHT * 8,
-    FAIL_WEIGHT * 7,
-    FAIL_WEIGHT * 6,
-    FAIL_WEIGHT * 5,
-    FAIL_WEIGHT * 4,
-    FAIL_WEIGHT * 3,
-    FAIL_WEIGHT * 2,
-    FAIL_WEIGHT * 1,
-    FAIL_WEIGHT * 0,
-];
-
-#[allow(dead_code)]
-const TOTAL_WEIGHTS: [usize; 12] = [
-    1 + FAIL_WEIGHT * 11,
-    1 + FAIL_WEIGHT * 10,
-    1 + FAIL_WEIGHT * 9,
-    5 + FAIL_WEIGHT * 8,
-    5 + FAIL_WEIGHT * 7,
-    5 + FAIL_WEIGHT * 6,
-    10 + FAIL_WEIGHT * 5,
-    10 + FAIL_WEIGHT * 4,
-    10 + FAIL_WEIGHT * 3,
-    30 + FAIL_WEIGHT * 2,
-    30 + FAIL_WEIGHT * 1,
-    30 + FAIL_WEIGHT * 0,
-];
 
 /// probability of success = success weight / total weight
 pub const PROBS: [f64; 12] = [
@@ -81,7 +41,7 @@ pub const PROBS: [f64; 12] = [
     10.0 / (10.0 + 10.0 * 3.0),
     30.0 / (30.0 + 10.0 * 2.0),
     30.0 / (30.0 + 10.0 * 1.0),
-    30.0 / (30.0 + 10.0 * 0.0),
+    1.0, // 30.0 / 30.0, + 10.0 * 0.0),
 ];
 
 /// caps that apply to the round.
