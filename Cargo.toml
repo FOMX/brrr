@@ -1,0 +1,19 @@
+[package]
+name = "brrr"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tracing = "0.1.40"
+tracing-subscriber = "0.3"
+rand = "0.10.0"
+rand_distr = "0.6.0"
+rayon = "1.11.0"
+num-format = "0.4.4"
+
+[dev-dependencies]
+criterion = { version = "0.8.2", features = ["html_reports"] }
+
+[[bench]]
+name = "game_bench"
+harness = false
